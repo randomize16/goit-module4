@@ -1,5 +1,7 @@
 package ua.goit.dao;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ua.goit.model.User;
 
 import java.sql.ResultSet;
@@ -7,6 +9,8 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 public class UserDao extends AbstractDao<User> {
+
+    private static final Logger LOGGER = LogManager.getLogger(UserDao.class);
 
     String getTableName() {
         return "users";
@@ -29,7 +33,7 @@ public class UserDao extends AbstractDao<User> {
             ps.setString(1, user.getName());
             ps.setString(2, user.getDescription());
         });
-        System.out.println("Record was created");
+        LOGGER.info("Record was created");
         return Optional.empty();
     }
 
@@ -41,7 +45,7 @@ public class UserDao extends AbstractDao<User> {
             ps.setString(2, user.getDescription());
             ps.setLong(3, user.getId());
         });
-        System.out.println("Record was updated");
+        LOGGER.info("Record was updated");
     }
 
 }

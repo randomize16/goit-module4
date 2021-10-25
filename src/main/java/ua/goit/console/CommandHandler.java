@@ -1,6 +1,7 @@
 package ua.goit.console;
 
 import ua.goit.console.commands.CategoryCommand;
+import ua.goit.console.commands.ItemsCommand;
 import ua.goit.console.commands.UsersCommand;
 
 import java.util.HashMap;
@@ -13,6 +14,7 @@ public class CommandHandler {
     public CommandHandler() {
         commandMap.put("users", new UsersCommand());
         commandMap.put("category", new CategoryCommand());
+        commandMap.put("items", new ItemsCommand());
     }
 
     public void handleCommand(String params) {

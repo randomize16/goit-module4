@@ -3,7 +3,6 @@ package ua.goit.console.commands;
 import ua.goit.console.Command;
 import ua.goit.dao.CategoryDao;
 import ua.goit.model.Category;
-import ua.goit.model.User;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,6 +25,7 @@ public class CategoryCommand implements Command {
     }
 
     private void update(String subParams) {
+
     }
 
     private void delete(String subParams) {

@@ -1,5 +1,7 @@
 package ua.goit.dao;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ua.goit.model.User;
 
 import java.sql.ResultSet;
@@ -10,8 +12,10 @@ import java.util.Optional;
 
 abstract public class AbstractDao<T extends Identity> implements Dao<T> {
 
+    private static final Logger LOGGER = LogManager.getLogger(AbstractDao.class);
+
     abstract String getTableName();
-    abstract T mapToEntity(ResultSet resultSet) throws SQLException;
+    abstract T mapToEntity(ResultSet rs) throws SQLException;
 
     @Override
     public void delete(T entity) {
@@ -19,7 +23,7 @@ abstract public class AbstractDao<T extends Identity> implements Dao<T> {
         DbHelper.executeWithPreparedStatement(sql, ps -> {
             ps.setLong(1, entity.getId());
         });
-        System.out.println("Deleted record from " + getTableName());
+        LOGGER.debug("Deleted record from " + getTableName());
     }
 
     @Override
@@ -31,7 +35,7 @@ abstract public class AbstractDao<T extends Identity> implements Dao<T> {
                         ps.setLong(1, id);
                     });
             if (resultSet.next()) {
-                System.out.println("Record was selected");
+                LOGGER.debug("Record was selected");
                 return Optional.of(mapToEntity(resultSet));
             } else {
                 return Optional.empty();
@@ -54,7 +58,7 @@ abstract public class AbstractDao<T extends Identity> implements Dao<T> {
                 resultList.add(mapToEntity(resultSet));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Get all method exception", e);
         }
         return resultList;
     }
