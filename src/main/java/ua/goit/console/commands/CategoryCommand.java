@@ -6,13 +6,19 @@ import ua.goit.model.Category;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class CategoryCommand implements Command {
+
+    public static final Logger  LOGGER = LogManager.getLogger(CategoryCommand.class);
 
     CategoryDao categoryDao = new CategoryDao();
 
     @Override
-    public void handle(String params) {
+    public void handle(String params, Consumer<Command> setActive) {
         String[] paramsArray = params.split(" ");
         String subParams = String.join(" ", params.replace(paramsArray[0]+ " ", ""));
         switch (paramsArray[0]) {
@@ -22,6 +28,11 @@ public class CategoryCommand implements Command {
             case "delete": delete(subParams);break;
             case "update": update(subParams);break;
         }
+    }
+
+    @Override
+    public void printActiveMenu() {
+        LOGGER.info("--------Category menu----------");
     }
 
     private void update(String subParams) {

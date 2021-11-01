@@ -12,6 +12,19 @@ public class DbHelper {
 
     private static final Logger LOGGER = LogManager.getLogger(DbHelper.class);
 
+    public static Long generateId(String sequenceName) {
+        try (Connection connection = DataSourceHolder.getDataSource().getConnection();
+             Statement ps = connection.createStatement()) {
+            ResultSet resultSet = ps.executeQuery("select nextval('" + sequenceName + "')");
+            if (resultSet.next()) {
+                return resultSet.getLong(1);
+            }
+        } catch (SQLException e) {
+            LOGGER.error("Exception while trying do SQL request", e);
+        }
+        return 0L;
+    }
+
     public static int executeWithPreparedStatement(String sql, ParameterSetter psCall) {
 
         try (Connection connection = DataSourceHolder.getDataSource().getConnection();
@@ -28,7 +41,7 @@ public class DbHelper {
         try (Connection connection = DataSourceHolder.getDataSource().getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
             psCall.set(ps);
-            ps.executeUpdate();
+            ps.execute();
             try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     return Optional.of(generatedKeys.getLong(1));

@@ -1,34 +1,44 @@
 package ua.goit.console;
 
-import ua.goit.console.commands.CategoryCommand;
-import ua.goit.console.commands.ItemsCommand;
-import ua.goit.console.commands.UsersCommand;
+import static ua.goit.console.Command.pattern;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.regex.Matcher;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import ua.goit.console.commands.MainMenuCommand;
 
 public class CommandHandler {
 
-    Map<String, Command> commandMap = new HashMap<>();
+    private static final Logger LOGGER = LogManager.getLogger(CommandHandler.class);
+
+    Command mainMenu = new MainMenuCommand();
+    Command activeMenu = mainMenu;
 
     public CommandHandler() {
-        commandMap.put("users", new UsersCommand());
-        commandMap.put("category", new CategoryCommand());
-        commandMap.put("items", new ItemsCommand());
+        this.activeMenu.printActiveMenu();
     }
 
     public void handleCommand(String params) {
-        int firstSpace = params.indexOf(" ");
-        if (firstSpace > -1) {
-            Command command = commandMap
-                    .get(params.substring(0, firstSpace));
-            if (command != null) {
-                command.handle(params.substring(firstSpace + 1));
+        Matcher matcher = pattern.matcher(params);
+        if (matcher.find()) {
+            String command = matcher.group();
+            if ("exit".equalsIgnoreCase(command)){
+                System.exit(0);
+            } else if ("active".equalsIgnoreCase(command)) {
+                this.activeMenu.printActiveMenu();
+            }else if ("main".equalsIgnoreCase(command)){
+                this.activeMenu = mainMenu;
+                this.activeMenu.printActiveMenu();
             } else {
-                System.out.println("Unknown command");
+                this.activeMenu.handle(params, cm -> {
+                    this.activeMenu = cm;
+                    this.activeMenu.printActiveMenu();
+                });
             }
         } else {
-            System.out.println("Unknown command");
+            LOGGER.warn("Empty command");
         }
     }
 }

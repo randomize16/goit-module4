@@ -6,13 +6,19 @@ import ua.goit.model.User;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class UsersCommand implements Command {
+
+    private static final Logger LOGGER = LogManager.getLogger(UsersCommand.class);
 
     private final UserDao userDao = new UserDao();
 
     @Override
-    public void handle(String params) {
+    public void handle(String params, Consumer<Command> setActive) {
         String[] paramsArray = params.split(" ");
         String subParams = String.join(" ", params.replace(paramsArray[0]+ " ", ""));
         switch (paramsArray[0]) {
@@ -74,5 +80,10 @@ public class UsersCommand implements Command {
         } else {
             System.out.println("User with id "  + paramsArray[0] + " not found");
         }
+    }
+
+    @Override
+    public void printActiveMenu() {
+        LOGGER.info("-------Users menu-----------");
     }
 }

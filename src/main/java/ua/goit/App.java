@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.goit.config.DbMigration;
 import ua.goit.console.CommandHandler;
+import ua.goit.dao.DbHelper;
 
 import java.util.Scanner;
 

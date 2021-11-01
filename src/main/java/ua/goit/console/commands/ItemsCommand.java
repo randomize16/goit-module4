@@ -8,6 +8,7 @@ import ua.goit.model.Item;
 import ua.goit.model.User;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class ItemsCommand implements Command {
 
@@ -16,7 +17,7 @@ public class ItemsCommand implements Command {
     private final ItemDao itemDao = new ItemDao();
 
     @Override
-    public void handle(String params) {
+    public void handle(String params, Consumer<Command> setActive) {
         String[] paramsArray = params.split(" ");
         String subParams = String.join(" ", params.replace(paramsArray[0]+ " ", ""));
         switch (paramsArray[0]) {
@@ -26,6 +27,11 @@ public class ItemsCommand implements Command {
             case "delete": delete(subParams);break;
             case "update": update(subParams);break;
         }
+    }
+
+    @Override
+    public void printActiveMenu() {
+        LOGGER.info("-------Item menu-----------");
     }
 
     private void update(String subParams) {
