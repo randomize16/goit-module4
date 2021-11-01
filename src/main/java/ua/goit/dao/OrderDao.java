@@ -6,6 +6,8 @@ import org.apache.logging.log4j.Logger;
 import ua.goit.config.DataSourceHolder;
 import ua.goit.model.Order;
 import ua.goit.model.OrderLine;
+import ua.goit.model.OrderLineView;
+import ua.goit.model.OrderView;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -77,17 +79,18 @@ public class OrderDao extends AbstractDao<Order> {
 
     }
 
-    public void printOrder(Long id) {
+    public Optional<OrderView> getOrderView(Long id) {
         try {
             ResultSet rs = DbHelper.getWithPreparedStatement("select number, o.description, u.name from orders o\n" +
                     "join users u on u.id = o.user_id where o.id = ?", ps -> {
                 ps.setLong(1, id);
             });
             if (rs.next()) {
-                LOGGER.info("Order with id = " + id);
-                LOGGER.info("Number: " + rs.getString(1) +
-                        " Description: " + rs.getString(2) +
-                        " User: " + rs.getString(3));
+
+                OrderView orderView = new OrderView();
+                orderView.setNumber(rs.getInt(1));
+                orderView.setDescription(rs.getString(2));
+                orderView.setUserName(rs.getString(3));
 
                 String linesSql = "select c.name, i.name, ol.item_count from order_lines ol\n" +
                         "join items i on ol.item_id = i.id\n" +
@@ -97,15 +100,19 @@ public class OrderDao extends AbstractDao<Order> {
                     ps.setLong(1, id);
                 });
                 while(lineRs.next()) {
-                    LOGGER.info("\t Category: "+ lineRs.getString(1)+
-                            " Item: "+ lineRs.getString(2) +
-                            " Count: " + lineRs.getString(3));
+                    OrderLineView line = new OrderLineView();
+                    line.setCategory(lineRs.getString(1));
+                    line.setItem(lineRs.getString(2));
+                    line.setCount(lineRs.getInt(3));
+                    orderView.getLines().add(line);
                 }
                 lineRs.close();
                 rs.close();
+                return Optional.of(orderView);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+           LOGGER.error(e);
         }
+        return Optional.empty();
     }
 }
