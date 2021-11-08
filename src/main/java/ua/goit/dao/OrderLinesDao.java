@@ -20,7 +20,7 @@ public class OrderLinesDao extends AbstractDao<OrderLine> {
     }
 
     @Override
-    OrderLine mapToEntity(ResultSet rs) throws SQLException {
+    public OrderLine mapToEntity(ResultSet rs) throws SQLException {
         OrderLine ol = new OrderLine();
         ol.setId(rs.getLong("id"));
         ol.setOrderId(rs.getLong("order_id"));

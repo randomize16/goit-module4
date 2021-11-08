@@ -3,10 +3,21 @@ package ua.goit.model;
 
 import ua.goit.dao.Identity;
 
+import java.util.List;
+
 public class User implements Identity {
     private Long id;
     private String name;
     private String description;
+    private List<Group> groups;
+
+    public List<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<Group> groups) {
+        this.groups = groups;
+    }
 
     public Long getId() {
         return id;

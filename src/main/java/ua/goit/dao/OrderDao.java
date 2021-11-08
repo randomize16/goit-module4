@@ -26,7 +26,7 @@ public class OrderDao extends AbstractDao<Order> {
     }
 
     @Override
-    Order mapToEntity(ResultSet rs) throws SQLException {
+    public Order mapToEntity(ResultSet rs) throws SQLException {
         Order order = new Order();
         order.setId(rs.getLong("id"));
         order.setNumber(rs.getInt("number"));

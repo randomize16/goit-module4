@@ -18,7 +18,7 @@ public class ItemDao extends AbstractDao<Item>{
     }
 
     @Override
-    Item mapToEntity(ResultSet rs) throws SQLException {
+    public Item mapToEntity(ResultSet rs) throws SQLException {
         Item item = new Item();
         item.setId(rs.getLong("id"));
         item.setCategoryId(rs.getLong("category_id"));

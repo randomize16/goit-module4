@@ -14,7 +14,7 @@ public class CategoryDao extends AbstractDao<Category> {
     }
 
     @Override
-    Category mapToEntity(ResultSet resultSet) throws SQLException {
+    public Category mapToEntity(ResultSet resultSet) throws SQLException {
         Category category = new Category();
         category.setId(resultSet.getLong("id"));
         category.setName(resultSet.getString("name"));

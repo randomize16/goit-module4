@@ -15,7 +15,7 @@ public class UsersCommand implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger(UsersCommand.class);
 
-    private final UserDao userDao = new UserDao();
+    private static final UserDao userDao = UserDao.getInstance();
 
     @Override
     public void handle(String params, Consumer<Command> setActive) {
