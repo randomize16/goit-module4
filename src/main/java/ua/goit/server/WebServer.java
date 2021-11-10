@@ -6,7 +6,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.goit.server.handlers.GeneralGetHandler;
 import ua.goit.server.handlers.IndexHandler;
-import ua.goit.server.handlers.UsersHandler;
+import ua.goit.server.handlers.users.UserCreateHandler;
+import ua.goit.server.handlers.users.UserDeleteHandler;
+import ua.goit.server.handlers.users.UserViewHandler;
+import ua.goit.server.handlers.users.UsersHandler;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -20,6 +23,9 @@ public class WebServer {
     private final Map<String, HttpHandler> handlers = Map.of(
             "/", new IndexHandler(),
             "/users", new UsersHandler(),
+            "/user-view", new UserViewHandler(),
+            "/user-create", new UserCreateHandler(),
+            "/user-delete", new UserDeleteHandler(),
             "/groups", new GeneralGetHandler("groups"),
             "/items", new GeneralGetHandler("items")
     );

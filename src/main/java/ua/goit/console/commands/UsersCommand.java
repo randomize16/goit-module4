@@ -10,12 +10,13 @@ import java.util.function.Consumer;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import ua.goit.service.UserService;
 
 public class UsersCommand implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger(UsersCommand.class);
 
-    private static final UserDao userDao = UserDao.getInstance();
+    private static final UserService service = UserService.getInstance();
 
     @Override
     public void handle(String params, Consumer<Command> setActive) {
@@ -31,7 +32,7 @@ public class UsersCommand implements Command {
     }
 
     private void getAll() {
-        List<User> all = userDao.getAll();
+        List<User> all = service.getAll();
         System.out.println("Returned "+ all.size() + " users");
         for (User user : all) {
             System.out.println(user);
@@ -40,13 +41,13 @@ public class UsersCommand implements Command {
 
     private void update(String params) { // user update ID NAME DESCRIPTION
         String[] paramsArray = params.split(" ");
-        Optional<User> optionalUser = userDao
+        Optional<User> optionalUser = service
                 .get(Long.parseLong(paramsArray[0]));
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             user.setName(paramsArray[1]);
             user.setDescription(paramsArray[2]);
-            userDao.update(user);
+            service.update(user);
         } else {
             System.out.println("User with id "  + paramsArray[0] + " not found");
         }
@@ -57,12 +58,12 @@ public class UsersCommand implements Command {
         User user = new User();
         user.setName(paramsArray[0]);
         user.setDescription(paramsArray[1]);
-        userDao.create(user);
+        service.create(user);
     }
 
     private void get(String params) { // users get 1
         String[] paramsArray = params.split(" ");
-        Optional<User> user = userDao
+        Optional<User> user = service
                 .get(Long.parseLong(paramsArray[0]));
         if (user.isPresent()) {
             System.out.println(user.get());
@@ -73,10 +74,10 @@ public class UsersCommand implements Command {
 
     private void delete(String params) { // users get 1
         String[] paramsArray = params.split(" ");
-        Optional<User> user = userDao
+        Optional<User> user = service
                 .get(Long.parseLong(paramsArray[0]));
         if (user.isPresent()) {
-            userDao.delete(user.get());
+            service.delete(user.get());
         } else {
             System.out.println("User with id "  + paramsArray[0] + " not found");
         }

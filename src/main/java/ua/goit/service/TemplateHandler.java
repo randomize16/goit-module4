@@ -5,9 +5,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TemplateHandler {
 
+    private static final Pattern pattern = Pattern
+            .compile("\\{\\{(\\w+)\\}\\}", Pattern.MULTILINE);
     private static TemplateHandler instance;
 
     private static ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
@@ -24,8 +28,11 @@ public class TemplateHandler {
 
     public String handleTemplate(String templateName, Map<String, String> params) {
         String template = getTemplate(templateName);
-        for (Map.Entry<String, String> entry : params.entrySet()) {
-            template = template.replaceAll("{{" + entry.getKey() + "}}" , entry.getValue());
+        final Matcher matcher = pattern.matcher(template);
+        while (matcher.find()) {
+            String replacer = params.get(matcher.group(1));
+            template = template.replace(matcher.group(0),
+                    replacer == null ? "" : replacer );
         }
         return template;
     }

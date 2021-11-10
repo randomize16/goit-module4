@@ -5,7 +5,7 @@ import com.sun.net.httpserver.HttpExchange;
 public class IndexHandler extends AbstractHandler {
 
     @Override
-    String getTemplateName() {
+    protected String getTemplateName() {
         return "index";
     }
 

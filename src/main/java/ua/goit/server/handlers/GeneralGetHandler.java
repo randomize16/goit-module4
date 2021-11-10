@@ -11,7 +11,7 @@ public class GeneralGetHandler extends AbstractHandler {
     }
 
     @Override
-    String getTemplateName() {
+    protected String getTemplateName() {
         return this.templateName;
     }
 
