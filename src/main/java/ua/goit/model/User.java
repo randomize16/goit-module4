@@ -9,7 +9,16 @@ public class User implements Identity {
     private Long id;
     private String name;
     private String description;
+    private String password;
     private List<Group> groups;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public List<Group> getGroups() {
         return groups;

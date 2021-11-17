@@ -37,6 +37,7 @@ public class UserDao extends AbstractDao<User> {
         user.setId(resultSet.getLong("id"));
         user.setName(resultSet.getString("name"));
         user.setDescription(resultSet.getString("description"));
+        user.setPassword(resultSet.getString("password"));
         return user;
     }
 
@@ -47,7 +48,7 @@ public class UserDao extends AbstractDao<User> {
                     ResultSet usersByGroup = GroupDao.getInstance().getGroupsByUser(group.getId());
                     try {
                         List<Group> list = new ArrayList<>();
-                        while(usersByGroup != null && usersByGroup.next()) {
+                        while (usersByGroup != null && usersByGroup.next()) {
                             list.add(GroupDao.getInstance().mapToEntity(usersByGroup));
                         }
                         group.setGroups(list);
@@ -56,6 +57,20 @@ public class UserDao extends AbstractDao<User> {
                     }
                     return group;
                 });
+    }
+
+    public User getByName(String userName) {
+        String sql = "select * from users where name = ?";
+        try (ResultSet rs = DbHelper.getWithPreparedStatement(sql, ps -> {
+            ps.setString(1, userName);
+        })) {
+            if (rs.next()) {
+                return mapToEntity(rs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
