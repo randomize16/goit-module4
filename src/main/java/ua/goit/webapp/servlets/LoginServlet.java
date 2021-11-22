@@ -8,14 +8,18 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import ua.goit.dao.UserDao;
 import ua.goit.model.User;
-import ua.goit.server.dto.LoginDto;
 
 import java.io.IOException;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
-    private final UserDao dao = UserDao.getInstance();
+    private UserDao dao;
+
+    @Override
+    public void init() throws ServletException {
+        this.dao = (UserDao) getServletContext().getAttribute("userDao");
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

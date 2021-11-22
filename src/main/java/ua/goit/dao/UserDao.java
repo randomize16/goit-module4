@@ -75,10 +75,11 @@ public class UserDao extends AbstractDao<User> {
 
     @Override
     public Optional<User> create(User user) {
-        String sql = "insert into users(name, description) values (?, ?)";
+        String sql = "insert into users(name, description, password) values (?, ?, ?)";
         DbHelper.executeWithPreparedStatement(sql, ps -> {
             ps.setString(1, user.getName());
             ps.setString(2, user.getDescription());
+            ps.setString(3, user.getPassword());
         });
         LOGGER.info("Record was created");
         return Optional.empty();
@@ -86,11 +87,12 @@ public class UserDao extends AbstractDao<User> {
 
     @Override
     public void update(User user) {
-        String sql = "update users set name = ?, description = ? where id = ?";
+        String sql = "update users set name = ?, description = ?, password = ? where id = ?";
         DbHelper.executeWithPreparedStatement(sql, ps -> {
             ps.setString(1, user.getName());
             ps.setString(2, user.getDescription());
-            ps.setLong(3, user.getId());
+            ps.setString(3, user.getPassword());
+            ps.setLong(4, user.getId());
         });
         LOGGER.info("Record was updated");
     }

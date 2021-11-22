@@ -3,7 +3,6 @@ package ua.goit.webapp.filters;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
@@ -20,7 +19,8 @@ public class AuthenticationFilter implements Filter {
         if ((session == null || session.getAttribute("user") == null)
                 && !"/login".equalsIgnoreCase(req.getRequestURI())) {
             req.getRequestDispatcher("/login").forward(req, response);
+        } else {
+            chain.doFilter(request, response);
         }
-        chain.doFilter(request, response);
     }
 }
