@@ -1,10 +1,10 @@
 package ua.goit.webapp.filters;
 
-import jakarta.servlet.*;
-import jakarta.servlet.annotation.WebFilter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
 @WebFilter("/*")

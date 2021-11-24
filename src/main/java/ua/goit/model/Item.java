@@ -3,19 +3,11 @@ package ua.goit.model;
 import ua.goit.dao.Identity;
 
 public class Item implements Identity {
+
     private Long id;
     private Long categoryId;
     private String name;
     private String description;
-    private Integer test;
-
-    public Integer getTest() {
-        return test;
-    }
-
-    public void setTest(Integer test) {
-        this.test = test;
-    }
 
     public Long getCategoryId() {
         return categoryId;

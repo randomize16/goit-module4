@@ -1,19 +1,22 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>View user</title>
+    <title>Category page</title>
     <meta charset="UTF-8">
     <%@ include file="headers.jsp" %>
 
 </head>
 <body>
+<% ua.goit.model.Category category = (ua.goit.model.Category) request.getAttribute("category"); %>
 <%@ include file="navigation.jsp" %>
-<% ua.goit.model.User user = (ua.goit.model.User) request.getAttribute("user"); %>
 <div class="container">
     <div class="row">
         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
             <div class="btn-group me-2" role="group" aria-label="Second group">
-                <a href="/users" type="button" class="btn btn-success">Back to users</a>
+                <a href="/categories" type="button" class="btn btn-success">Back to categories</a>
             </div>
         </div>
     </div>
@@ -21,26 +24,30 @@
         <div class="mb-3">
             <label for="id" class="form-label">ID</label>
             <input type="text" disabled class="form-control"
-                   value="${user.id}"
+                   value="${category.id}"
                    id="id" placeholder="Id">
         </div>
         <div class="mb-3">
             <label for="name" class="form-label">Name</label>
             <input type="text" class="form-control"
-                   value="${user.name}"
-                   id="name" placeholder="User name">
+                   value="${category.name}"
+                   id="name" placeholder="Category name">
         </div>
         <div class="mb-3">
             <label for="description" class="form-label">Description</label>
             <input type="text" class="form-control"
-                   value="${user.description}"
-                   id="description" placeholder="User description">
+                   value="${category.description}"
+                   id="description" placeholder="Category description">
         </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control"
-                   value=""
-            id="password" placeholder="Password">
+        <div class="form-floating">
+            <select class="form-select" id="parentId" value="{category.parentId}"
+                    aria-label="Floating label select example">
+                <option selected disabled>Select parent category</option>
+                <c:forEach var="element" items="${categories}">
+                    <option value="${element.id}">${element.name}</option>
+                </c:forEach>
+            </select>
+            <label for="parentId">Parent category</label>
         </div>
     </div>
     <div class="row">
@@ -55,22 +62,22 @@
     let id = document.getElementById('id');
     let name = document.getElementById('name');
     let description = document.getElementById('description');
-    let password = document.getElementById('password');
+    let parentId = document.getElementById('parentId');
 
     function save() {
      let body = {
-     <% if(user.getId() != null) {%>
+     <% if(category.getId() != null) {%>
          id: id.value,
       <% } %>
-        password: password.value,
+        parentId: parentId.value,
         name: name.value,
         description: description.value,
       }
-      <% if(user.getId() == null) {%>
-         let url = '/users';
+      <% if(category.getId() == null) {%>
+         let url = '/categories';
          let method = 'POST';
       <% } else { %>
-         let url = '/users/<%= user.getId() %>';
+         let url = '/categories/<%= category.getId() %>';
          let method = 'PUT';
       <% } %>
         fetch(url, {
@@ -78,7 +85,7 @@
             body: JSON.stringify(body)
         })
         .then( _ => {
-            window.location.href = '/users';
+            window.location.href = '/categories';
         }
         );
     }

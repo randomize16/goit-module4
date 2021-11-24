@@ -24,7 +24,6 @@ public class ItemDao extends AbstractDao<Item>{
         item.setCategoryId(rs.getLong("category_id"));
         item.setName(rs.getString("name"));
         item.setDescription(rs.getString("description"));
-        item.setTest(rs.getInt("test"));
         return item;
     }
 

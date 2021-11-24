@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Users page</title>
+    <title>Items page</title>
     <%@ include file="headers.jsp" %>
 
 </head>
@@ -14,7 +14,7 @@
 
 <div class="container">
     <div class="row">
-        <h2>Users page</h2>
+        <h2>Items page</h2>
     </div>
 
     <div class="row">
@@ -28,21 +28,23 @@
             <tr>
                 <th scope="col">Id</th>
                 <th scope="col">Name</th>
+                <th scope="col">CategoryId</th>
                 <th scope="col">Description</th>
                 <th scope="col">Action</th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="user" items="${users}">
+            <c:forEach var="item" items="${items}">
                 <tr>
-                    <td><c:out value = "${user.id}"/></td>
-                    <td><c:out value = "${user.name}"/></td>
-                    <td><c:out value = "${user.description}"/></td>
+                    <td>${item.id}</td>
+                    <td>${item.name}</td>
+                    <td><a href="/categories/${item.categoryId}">${item.categoryId}</a></td>
+                    <td>${item.description}</td>
                     <td>
                         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                             <div class="btn-group me-2" role="group" aria-label="Second group">
-                                <a href="/users/<c:out value = '${user.id}'/>" type="button" class="btn btn-warning">Edit</a>
-                                <a href="/users?deleteId=<c:out value = '${user.id}'/>" type="button" class="btn btn-danger">Remove</a>
+                                <a href="/items/${item.id}" type="button" class="btn btn-warning">Edit</a>
+                                <a href="/items?deleteId=${item.id}" type="button" class="btn btn-danger">Remove</a>
                             </div>
                         </div>
                     </td>

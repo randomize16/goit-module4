@@ -1,25 +1,28 @@
 <%! int fontSize;
     String a;
  %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Main page</title>
-    <jsp:include page="headers.jsp"/>
+    <%@ include file="headers.jsp" %>
+
 </head>
 <body>
 
-<jsp:include page="navigation.jsp"/>
+<%@ include file="navigation.jsp" %>
+
 <%-- This is JSP comment --%>
 
-   <span>Hello <%=session.getAttribute("user")%></span>
+   <span>Hello <c:out value="${sessionScope.user}"/></span>
     <div style="text-align: right">
         <a href="<%=request.getContextPath()%>/logout">Logout</a>
     </div>
-    <% for ( fontSize = 1; fontSize <= 3; fontSize++){ %>
-             <font color = "green" size = "<%= fontSize * 3 %>">
-                BLOCK
-          </font><br />
-          <%}%>
+    <c:forEach var = "i" begin = "1" end = "3">
+        <font color = "green" size = '<c:out value = "${i * 3}"/>'>
+            BLOCK
+        </font><br />
+    </c:forEach>
 </body>
 </html>

@@ -10,7 +10,13 @@
                     <a class="nav-link" aria-current="page" href="/users">Users</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/items">Items</a>
+                    <a class="nav-link" aria-current="page" href="/items">Items</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/categories">Category</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/orders">Orders</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/groups">Groups</a>

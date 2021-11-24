@@ -1,9 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-    <title>Users page</title>
+    <title>Category page</title>
     <%@ include file="headers.jsp" %>
 
 </head>
@@ -14,13 +14,13 @@
 
 <div class="container">
     <div class="row">
-        <h2>Users page</h2>
+        <h2>Categories page</h2>
     </div>
 
     <div class="row">
         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
             <div class="btn-group me-2" role="group" aria-label="Second group">
-                <a href="/users/new" type="button" class="btn btn-primary">New</a>
+                <a href="/categories/new" type="button" class="btn btn-primary">New</a>
             </div>
         </div>
         <table class="table">
@@ -28,21 +28,23 @@
             <tr>
                 <th scope="col">Id</th>
                 <th scope="col">Name</th>
+                <th scope="col">ParentId</th>
                 <th scope="col">Description</th>
                 <th scope="col">Action</th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="user" items="${users}">
+            <c:forEach var="category" items="${categories}">
                 <tr>
-                    <td><c:out value = "${user.id}"/></td>
-                    <td><c:out value = "${user.name}"/></td>
-                    <td><c:out value = "${user.description}"/></td>
+                    <td><c:out value = "${category.id}"/></td>
+                    <td><c:out value = "${category.name}"/></td>
+                    <td><c:out value = "${category.parentId}"/></td>
+                    <td><c:out value = "${category.description}"/></td>
                     <td>
                         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                             <div class="btn-group me-2" role="group" aria-label="Second group">
-                                <a href="/users/<c:out value = '${user.id}'/>" type="button" class="btn btn-warning">Edit</a>
-                                <a href="/users?deleteId=<c:out value = '${user.id}'/>" type="button" class="btn btn-danger">Remove</a>
+                                <a href="/categories/${category.id}" type="button" class="btn btn-warning">Edit</a>
+                                <a href="/categories?deleteId=${item.id}" type="button" class="btn btn-danger">Remove</a>
                             </div>
                         </div>
                     </td>

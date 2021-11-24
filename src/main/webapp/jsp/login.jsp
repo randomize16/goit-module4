@@ -4,11 +4,11 @@
     <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Login</title>
-        <jsp:include page="headers.jsp"/>
+        <%@ include file="headers.jsp" %>
 
     </head>
     <body>
-    <jsp:include page="navigation.jsp"/>
+    <%@ include file="navigation.jsp" %>
 
         <form name="form" action="<%=request.getContextPath()%>/login" method="post">
 
