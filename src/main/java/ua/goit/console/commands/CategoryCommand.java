@@ -15,7 +15,7 @@ public class CategoryCommand implements Command {
 
     public static final Logger  LOGGER = LogManager.getLogger(CategoryCommand.class);
 
-    CategoryDao categoryDao = new CategoryDao();
+    CategoryDao categoryDao = CategoryDao.getInstance();
 
     @Override
     public void handle(String params, Consumer<Command> setActive) {

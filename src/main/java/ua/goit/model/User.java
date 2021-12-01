@@ -1,11 +1,18 @@
 package ua.goit.model;
 
 
-import ua.goit.dao.Identity;
-
+import javax.persistence.*;
 import java.util.List;
 
-public class User implements Identity {
+@Entity
+@Table(name = "users")
+@NamedQueries({
+        @NamedQuery(name = "getAll", query = "from Users"),
+        @NamedQuery(name = "userByName", query = "from Users where name = :name")
+})
+public class User {
+    @Id
+    @GeneratedValue(generator = "users_id_seq")
     private Long id;
     private String name;
     private String description;

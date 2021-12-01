@@ -13,10 +13,10 @@ public class OrderService {
 
     private static final Logger LOGGER = LogManager.getLogger(OrderService.class);
 
-    private final OrderDao orderDao = new OrderDao();
+    private final OrderDao orderDao = OrderDao.getInstance();
     private final UserDao userDao = UserDao.getInstance();
-    private final ItemDao itemDao = new ItemDao();
-    private final CategoryDao categoryDao = new CategoryDao();
+    private final ItemDao itemDao = ItemDao.getInstance();
+    private final CategoryDao categoryDao = CategoryDao.getInstance();
     private final OrderLinesDao orderLinesDao = new OrderLinesDao();
 
     public void save(Order order) {

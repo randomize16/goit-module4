@@ -14,7 +14,7 @@ public class ItemsCommand implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger(ItemsCommand.class);
 
-    private final ItemDao itemDao = new ItemDao();
+    private final ItemDao itemDao = ItemDao.getInstance();
 
     @Override
     public void handle(String params, Consumer<Command> setActive) {

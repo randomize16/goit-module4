@@ -1,41 +1,45 @@
 package ua.goit.dao;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import ua.goit.config.PersistenceProvider;
 import ua.goit.model.Category;
+import ua.goit.model.Group;
 import ua.goit.model.User;
 
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 
 public class CategoryDao extends AbstractDao<Category> {
-    @Override
-    String getTableName() {
-        return "category";
+
+    private static final Logger LOGGER = LogManager.getLogger(CategoryDao.class);
+    private EntityManager em = PersistenceProvider.getEntityManager();
+
+    private static CategoryDao instance;
+    private CategoryDao() {
+    }
+
+    public static CategoryDao getInstance() {
+        if (instance == null) {
+            instance  = new CategoryDao();
+        }
+        return instance;
     }
 
     @Override
-    public Category mapToEntity(ResultSet resultSet) throws SQLException {
-        Category category = new Category();
-        category.setId(resultSet.getLong("id"));
-        category.setName(resultSet.getString("name"));
-        category.setDescription(resultSet.getString("description"));
-        category.setParentId(resultSet.getLong("parent_id"));
-        return category;
+    public List<Category> getAll() {
+        TypedQuery<Category> query = em.createQuery("from Category", Category.class);
+        return query.getResultList();
     }
 
     @Override
-    public Optional<Category> create(Category category) {
-        String sql = "insert into category(name, description, parent_id) values (?, ?, ?)";
-        DbHelper.executeWithPreparedStatement(sql, ps -> {
-            ps.setString(1, category.getName());
-            ps.setString(2, category.getDescription());
-            ps.setLong(3, category.getParentId());
-        });
-        System.out.println("Record was created");
-        return Optional.empty();
+    public Optional<Category> get(Long id) {
+        Category category = em.find(Category.class, id);
+        return Optional.of(category);
     }
 
-    @Override
-    public void update(Category entity) {
-    }
 }

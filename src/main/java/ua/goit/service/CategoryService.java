@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public class CategoryService {
 
-    CategoryDao categoryDao = new CategoryDao();
+    CategoryDao categoryDao = CategoryDao.getInstance();
 
     public List<Category> getAll() {
         return categoryDao.getAll();

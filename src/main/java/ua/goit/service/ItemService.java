@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ItemService {
 
-    private ItemDao dao = new ItemDao();
+    private ItemDao dao = ItemDao.getInstance();
 
     public List<Item> getAll() {
         return dao.getAll();

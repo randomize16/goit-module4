@@ -1,11 +1,17 @@
 package ua.goit.model;
 
-import ua.goit.dao.Identity;
-
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Order implements Identity {
+@Entity
+@Table(name = "orders")
+public class Order {
+    @Id
+    @GeneratedValue(generator = "orders_id_seq")
     private Long id;
     private Integer number;
     private String description;

@@ -2,6 +2,7 @@ package ua.goit.webapp.listners;
 
 
 import ua.goit.config.DbMigration;
+import ua.goit.config.PersistenceProvider;
 import ua.goit.dao.UserDao;
 import ua.goit.service.CategoryService;
 import ua.goit.service.ItemService;
@@ -18,12 +19,13 @@ public class LoadListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        DbMigration.migrate();
-        ServletContext servletContext = sce.getServletContext();
-        servletContext.setAttribute("userDao", UserDao.getInstance());
-        servletContext.setAttribute("userService", UserService.getInstance());
-        servletContext.setAttribute("itemService", new ItemService());
-        servletContext.setAttribute("categoryService", new CategoryService());
-        servletContext.setAttribute("orderService", new OrderService());
+        PersistenceProvider.getEntityManager();
+//        DbMigration.migrate();
+//        ServletContext servletContext = sce.getServletContext();
+//        servletContext.setAttribute("userDao", UserDao.getInstance());
+//        servletContext.setAttribute("userService", UserService.getInstance());
+//        servletContext.setAttribute("itemService", new ItemService());
+//        servletContext.setAttribute("categoryService", new CategoryService());
+//        servletContext.setAttribute("orderService", new OrderService());
     }
 }

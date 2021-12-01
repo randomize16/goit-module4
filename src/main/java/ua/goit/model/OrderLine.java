@@ -1,8 +1,15 @@
 package ua.goit.model;
 
-import ua.goit.dao.Identity;
+import javax.persistence.*;
 
-public class OrderLine implements Identity {
+@Entity
+@Table(name = "order_lines")
+@NamedQueries({
+        @NamedQuery(name = "lineByOrderId", query = "from OrderLine where orderId = :orderId")
+})
+public class OrderLine {
+    @Id
+    @GeneratedValue(generator = "order_lines_id_seq")
     private Long id;
     private Long orderId;
     private Long itemId;

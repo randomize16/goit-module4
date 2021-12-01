@@ -1,10 +1,16 @@
 package ua.goit.model;
 
-import ua.goit.dao.Identity;
-
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.List;
 
-public class Group implements Identity {
+@Entity
+@Table(name = "groups")
+public class Group {
+    @Id
+    @GeneratedValue(generator = "groups_id_seq")
     private Long id;
     private String name;
     private List<User> users;

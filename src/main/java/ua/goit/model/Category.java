@@ -1,14 +1,20 @@
 package ua.goit.model;
 
-import ua.goit.dao.Identity;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-public class Category implements Identity {
+@Entity
+@Table(name = "category")
+public class Category {
+    @Id
+    @GeneratedValue(generator = "category_id_seq")
     private Long id;
     private String name;
     private String description;
     private Long parentId;
 
-    @Override
     public Long getId() {
         return id;
     }
