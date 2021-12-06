@@ -14,6 +14,9 @@ public class OrderLine {
     private Long orderId;
     private Long itemId;
     private Integer itemCount;
+    @ManyToOne
+    @JoinColumn(name="order_id", nullable=false)
+    private Order order;
 
     public Long getId() {
         return id;
@@ -45,5 +48,13 @@ public class OrderLine {
 
     public void setItemCount(Integer itemCount) {
         this.itemCount = itemCount;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

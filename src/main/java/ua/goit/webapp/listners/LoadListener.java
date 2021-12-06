@@ -19,13 +19,12 @@ public class LoadListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        PersistenceProvider.getEntityManager();
 //        DbMigration.migrate();
-//        ServletContext servletContext = sce.getServletContext();
-//        servletContext.setAttribute("userDao", UserDao.getInstance());
-//        servletContext.setAttribute("userService", UserService.getInstance());
-//        servletContext.setAttribute("itemService", new ItemService());
-//        servletContext.setAttribute("categoryService", new CategoryService());
-//        servletContext.setAttribute("orderService", new OrderService());
+        ServletContext servletContext = sce.getServletContext();
+        servletContext.setAttribute("userDao", UserDao.getInstance());
+        servletContext.setAttribute("userService", UserService.getInstance());
+        servletContext.setAttribute("itemService", new ItemService());
+        servletContext.setAttribute("categoryService", new CategoryService());
+        servletContext.setAttribute("orderService", new OrderService());
     }
 }

@@ -2,13 +2,14 @@ package ua.goit.model;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
 @NamedQueries({
-        @NamedQuery(name = "getAll", query = "from Users"),
-        @NamedQuery(name = "userByName", query = "from Users where name = :name")
+        @NamedQuery(name = "getAll", query = "from User"),
+        @NamedQuery(name = "userByName", query = "from User where name = :name")
 })
 public class User {
     @Id
@@ -17,7 +18,18 @@ public class User {
     private String name;
     private String description;
     private String password;
-    private List<Group> groups;
+    @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Group> groups = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders = new ArrayList<>();
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
 
     public String getPassword() {
         return password;

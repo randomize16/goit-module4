@@ -6,7 +6,17 @@ import javax.persistence.Persistence;
 
 public class PersistenceProvider {
 
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("module7");
+    private static final EntityManagerFactory emf;
+    static {
+        try {
+            emf = Persistence
+                    .createEntityManagerFactory("module7");
+
+        } catch (Throwable t) {
+            t.printStackTrace();
+            throw t;
+        }
+    }
 
     public static EntityManager getEntityManager() {
         return emf.createEntityManager();

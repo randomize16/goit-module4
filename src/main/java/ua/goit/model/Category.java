@@ -1,9 +1,6 @@
 package ua.goit.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "category")
@@ -13,7 +10,11 @@ public class Category {
     private Long id;
     private String name;
     private String description;
+    @Column(name = "parent_id", insertable = false, updatable = false)
     private Long parentId;
+    @ManyToOne
+    @JoinColumn(name="parent_id", nullable=false)
+    private Category parent;
 
     public Long getId() {
         return id;
@@ -45,6 +46,14 @@ public class Category {
 
     public void setParentId(Long parentId) {
         this.parentId = parentId;
+    }
+
+    public Category getParent() {
+        return parent;
+    }
+
+    public void setParent(Category parent) {
+        this.parent = parent;
     }
 
     @Override

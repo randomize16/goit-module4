@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +28,7 @@
             <tr>
                 <th scope="col">Id</th>
                 <th scope="col">Name</th>
-                <th scope="col">CategoryId</th>
+                <th scope="col">Category</th>
                 <th scope="col">Description</th>
                 <th scope="col">Action</th>
             </tr>
@@ -38,7 +38,7 @@
                 <tr>
                     <td>${item.id}</td>
                     <td>${item.name}</td>
-                    <td><a href="/categories/${item.categoryId}">${item.categoryId}</a></td>
+                    <td><a href="/categories/${item.category.id}">${item.category.name}</a></td>
                     <td>${item.description}</td>
                     <td>
                         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">

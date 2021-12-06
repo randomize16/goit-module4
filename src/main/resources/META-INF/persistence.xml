@@ -4,23 +4,18 @@
              version="2.0">
     <persistence-unit name="module7">
 
-        <class>ua.goit.model.Group</class>
-        <class>ua.goit.model.User</class>
-        <class>ua.goit.model.Category</class>
-        <class>ua.goit.model.OrderLineView</class>
-        <class>ua.goit.model.Item</class>
-        <class>ua.goit.model.Order</class>
-
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
+            <property name="hibernate.archive.autodetection" value="class, hbm" />
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
             <property name="hibernate.hbm2ddl.auto" value="none"/>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/postgres"/>
             <property name="javax.persistence.jdbc.user" value="postgres"/>
             <property name="javax.persistence.jdbc.password" value="password"/>
+            <property name="hibernate.connection.autocommit" value="true" />
 
-            <property name="show_sql" value="true"/>
+            <property name="hibernate.show_sql" value="true"/>
 
         </properties>
     </persistence-unit>

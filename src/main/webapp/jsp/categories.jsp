@@ -28,7 +28,7 @@
             <tr>
                 <th scope="col">Id</th>
                 <th scope="col">Name</th>
-                <th scope="col">ParentId</th>
+                <th scope="col">Parent</th>
                 <th scope="col">Description</th>
                 <th scope="col">Action</th>
             </tr>
@@ -38,7 +38,7 @@
                 <tr>
                     <td><c:out value = "${category.id}"/></td>
                     <td><c:out value = "${category.name}"/></td>
-                    <td><c:out value = "${category.parentId}"/></td>
+                    <td><c:out value = "${category.parent.name}"/></td>
                     <td><c:out value = "${category.description}"/></td>
                     <td>
                         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">

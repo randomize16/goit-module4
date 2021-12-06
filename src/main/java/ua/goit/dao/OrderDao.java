@@ -20,6 +20,7 @@ public class OrderDao extends AbstractDao<Order> {
 
     private static OrderDao instance;
     private OrderDao() {
+        super(Order.class);
     }
 
     public static OrderDao getInstance() {
@@ -27,17 +28,6 @@ public class OrderDao extends AbstractDao<Order> {
             instance  = new OrderDao();
         }
         return instance;
-    }
-
-    @Override
-    public List<Order> getAll() {
-        TypedQuery<Order> query = em.createQuery("from Order", Order.class);
-        return query.getResultList();    }
-
-    @Override
-    public Optional<Order> get(Long id) {
-        Order entity = em.find(Order.class, id);
-        return Optional.of(entity);
     }
 
     public Optional<OrderView> getOrderView(Long id) {

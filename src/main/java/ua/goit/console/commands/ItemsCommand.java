@@ -60,7 +60,7 @@ public class ItemsCommand implements Command {
     private void create(String subParams) {
         String[] paramsArray = subParams.split(" ");
         Item item = new Item();
-        item.setCategoryId(Long.parseLong(paramsArray[0]));
+//        item.setCategoryId(Long.parseLong(paramsArray[0]));
         item.setName(paramsArray[1]);
         item.setDescription(paramsArray[2]);
         itemDao.create(item);

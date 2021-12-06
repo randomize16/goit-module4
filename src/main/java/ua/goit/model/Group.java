@@ -1,9 +1,6 @@
 package ua.goit.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -13,6 +10,13 @@ public class Group {
     @GeneratedValue(generator = "groups_id_seq")
     private Long id;
     private String name;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "group_to_user",
+            joinColumns = { @JoinColumn(name = "group_id") },
+            inverseJoinColumns = { @JoinColumn(name = "user_id") }
+    )
     private List<User> users;
 
     public Long getId() {

@@ -13,8 +13,6 @@ public class ItemDao extends AbstractDao<Item>{
     private static final Logger LOGGER = LogManager.getLogger(Item.class);
 
     private static ItemDao instance;
-    private ItemDao() {
-    }
 
     public static ItemDao getInstance() {
         if (instance == null) {

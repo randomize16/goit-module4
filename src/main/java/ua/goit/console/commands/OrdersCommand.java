@@ -72,7 +72,7 @@ public class OrdersCommand implements Command {
         this.order = new Order();
         String[] paramsArray = params.split(" ");
         this.order.setNumber(Integer.parseInt(paramsArray[0]));
-        this.order.setUserId(Long.parseLong(paramsArray[1]));
+//        this.order.setUserId(Long.parseLong(paramsArray[1]));
         this.order.setDescription(paramsArray[2]);
     }
 

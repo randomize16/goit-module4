@@ -20,6 +20,7 @@ public class UserDao extends AbstractDao<User> {
 
 
     private UserDao() {
+        super(User.class);
     }
 
     public static UserDao getInstance() {
@@ -34,17 +35,4 @@ public class UserDao extends AbstractDao<User> {
         userByName.setParameter("name", userName);
         return userByName.getSingleResult();
     }
-
-    @Override
-    public List<User> getAll() {
-        Query getAll = em.createNamedQuery("getAll");
-        return getAll.getResultList();
-    }
-
-    @Override
-    public Optional<User> get(Long id) {
-        User user = em.find(User.class, id);
-        return Optional.of(user);
-    }
-
 }

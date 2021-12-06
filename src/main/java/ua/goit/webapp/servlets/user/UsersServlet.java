@@ -27,9 +27,8 @@ public class UsersServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String deleteId = req.getParameter("deleteId");
         if (deleteId != null) {
-            User user = new User();
-            user.setId(Long.parseLong(deleteId));
-            service.delete(user);
+            Optional<User> user = service.get(Long.parseLong(deleteId));
+            user.ifPresent(user1 -> service.delete(user1));
             resp.sendRedirect("/users");
         } else {
             List<User> all = service.getAll();

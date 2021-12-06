@@ -1,10 +1,7 @@
 package ua.goit.model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "items")
@@ -12,16 +9,18 @@ public class Item {
     @Id
     @GeneratedValue(generator = "items_id_seq")
     private Long id;
-    private Long categoryId;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
     private String name;
     private String description;
 
-    public Long getCategoryId() {
-        return categoryId;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public Long getId() {
@@ -52,7 +51,7 @@ public class Item {
     public String toString() {
         return "Item{" +
                 "id=" + id +
-                ", categoryId=" + categoryId +
+                ", categoryId=" + category.getId() +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 '}';

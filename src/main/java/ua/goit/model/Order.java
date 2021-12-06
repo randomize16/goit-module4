@@ -1,9 +1,6 @@
 package ua.goit.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +12,10 @@ public class Order {
     private Long id;
     private Integer number;
     private String description;
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
+    @OneToMany(mappedBy = "order")
     private List<OrderLine> lines = new ArrayList<>();
 
     public Long getId() {
@@ -42,14 +42,6 @@ public class Order {
         this.description = description;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
     public List<OrderLine> getLines() {
         return lines;
     }
@@ -58,13 +50,20 @@ public class Order {
         this.lines = lines;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
                 "id=" + id +
                 ", number=" + number +
                 ", description='" + description + '\'' +
-                ", userId=" + userId +
                 '}';
     }
 }

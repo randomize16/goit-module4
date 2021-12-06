@@ -18,6 +18,7 @@ public class GroupDao extends AbstractDao<Group> {
 
     private static GroupDao instance;
     private GroupDao() {
+        super(Group.class);
     }
 
     public static GroupDao getInstance() {

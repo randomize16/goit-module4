@@ -48,9 +48,9 @@ public class OrderService {
                                 this.itemDao.get(orderLine.getItemId())
                                         .ifPresent(item -> {
                                             lineView.setItem(item.getName());
-                                            this.categoryDao.get(item.getCategoryId())
-                                                    .ifPresent(category ->
-                                                            lineView.setCategory(category.getName()));
+//                                            this.categoryDao.get(item.getCategoryId())
+//                                                    .ifPresent(category ->
+//                                                            lineView.setCategory(category.getName()));
                                         });
                                 return lineView;
                             })
