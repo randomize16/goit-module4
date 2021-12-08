@@ -35,7 +35,7 @@
         <div class="mb-3">
             <label for="userName" class="form-label">User</label>
             <input type="text" class="form-control"
-                   value="${order.userName}"
+                   value="${order.user.name}"
                    id="userName" placeholder="User">
         </div>
     </div>
@@ -51,9 +51,9 @@
             <tbody>
             <c:forEach var="line" items="${order.lines}">
                 <tr>
-                    <td>${line.category}</td>
-                    <td>${line.item}</td>
-                    <td>${line.count}</td>
+                    <td>${line.item.category.name}</td>
+                    <td>${line.item.name}</td>
+                    <td>${line.itemCount}</td>
                 </tr>
             </c:forEach>
             </tbody>

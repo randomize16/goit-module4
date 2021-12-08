@@ -28,36 +28,34 @@ public class OrderService {
         }
     }
 
+    public Optional<Order> get(Long id) {
+        return this.orderDao.get(id);
+    }
+
+    public void delete(Long id) {
+        this.orderDao.get(id)
+                .ifPresent(this.orderDao::delete);
+    }
+
     public List<Order> getAll() {
         return this.orderDao.getAll();
     }
 
-    public Optional<OrderView> getOrderView(Long id) {
-        return this.orderDao.get(id)
-                .map(order -> {
-                    OrderView view = new OrderView();
-                    view.setNumber(order.getNumber());
-                    view.setDescription(order.getDescription());
-                    userDao.get(order.getId())
-                                    .ifPresent(user -> view.setUserName(user.getName()));
-                    view.setLines(orderLinesDao.getOrderLines(order.getId())
-                            .stream()
-                            .map(orderLine -> {
-                                OrderLineView lineView = new OrderLineView();
-                                lineView.setCount(orderLine.getItemCount());
-                                this.itemDao.get(orderLine.getItemId())
-                                        .ifPresent(item -> {
-                                            lineView.setItem(item.getName());
-//                                            this.categoryDao.get(item.getCategoryId())
-//                                                    .ifPresent(category ->
-//                                                            lineView.setCategory(category.getName()));
-                                        });
-                                return lineView;
-                            })
-                            .collect(Collectors.toList())
-                    );
-                    return view;
-                });
-//        return this.orderDao.getOrderView(id);
-    }
+//    public Optional<OrderView> getOrderView(Long id) {
+//        return this.orderDao.get(id)
+//                .map(order -> {
+//                    OrderView view = new OrderView();
+//                    view.setNumber(order.getNumber());
+//                    view.setDescription(order.getDescription());
+//                    view.setUserName(order.getUser().getName());
+//                    view.setLines(order.getLines().stream()
+//                            .map(orderLine -> {
+//                                OrderLineView orderLineView = new OrderLineView();
+//                                orderLineView.setItem(orderLine.getItem().getName());
+//
+//                            })
+//                            .collect(Collectors.toList()));
+//                    return view;
+//                });
+//    }
 }

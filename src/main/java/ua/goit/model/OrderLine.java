@@ -11,12 +11,15 @@ public class OrderLine {
     @Id
     @GeneratedValue(generator = "order_lines_id_seq")
     private Long id;
-    private Long orderId;
-    private Long itemId;
+
+    @Column(name = "item_count")
     private Integer itemCount;
-    @ManyToOne
-    @JoinColumn(name="order_id", nullable=false)
+    @ManyToOne(cascade = CascadeType.REFRESH)
+    @JoinColumn(name="order_id")
     private Order order;
+    @ManyToOne(cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "item_id")
+    private Item item;
 
     public Long getId() {
         return id;
@@ -26,20 +29,12 @@ public class OrderLine {
         this.id = id;
     }
 
-    public Long getOrderId() {
-        return orderId;
+    public Item getItem() {
+        return item;
     }
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
-    }
-
-    public Long getItemId() {
-        return itemId;
-    }
-
-    public void setItemId(Long itemId) {
-        this.itemId = itemId;
+    public void setItem(Item item) {
+        this.item = item;
     }
 
     public Integer getItemCount() {

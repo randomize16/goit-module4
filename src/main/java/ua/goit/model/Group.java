@@ -11,7 +11,8 @@ public class Group {
     private Long id;
     private String name;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
+            fetch = FetchType.EAGER)
     @JoinTable(
             name = "group_to_user",
             joinColumns = { @JoinColumn(name = "group_id") },

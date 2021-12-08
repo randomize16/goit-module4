@@ -39,7 +39,8 @@ public class UsersServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Optional<User> modelFromStream = HandleBodyUtil.getModelFromStream(req.getInputStream(), User.class);
+        Optional<User> modelFromStream = HandleBodyUtil
+                .getModelFromStream(req.getInputStream(), User.class);
         modelFromStream.ifPresent(user -> service.create(user));
         resp.sendRedirect("/users");
     }

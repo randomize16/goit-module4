@@ -29,7 +29,7 @@
                 <th scope="col">Id</th>
                 <th scope="col">Number</th>
                 <th scope="col">Description</th>
-                <th scope="col">UserId</th>
+                <th scope="col">User Name</th>
                 <th scope="col">Action</th>
             </tr>
             </thead>
@@ -39,7 +39,7 @@
                     <td><c:out value = "${order.id}"/></td>
                     <td><c:out value = "${order.number}"/></td>
                     <td><c:out value = "${order.description}"/></td>
-                    <td><c:out value = "${order.userId}"/></td>
+                    <td><c:out value = "${order.user.name}"/></td>
                     <td>
                         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                             <div class="btn-group me-2" role="group" aria-label="Second group">

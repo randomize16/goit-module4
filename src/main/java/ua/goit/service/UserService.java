@@ -2,7 +2,9 @@ package ua.goit.service;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import ua.goit.dao.GroupDao;
 import ua.goit.dao.UserDao;
+import ua.goit.model.Group;
 import ua.goit.model.User;
 
 import java.util.List;
@@ -14,6 +16,7 @@ public class UserService {
 
     private static final Logger LOGGER = LogManager.getLogger(UserService.class);
     private static final UserDao userDao = UserDao.getInstance();
+    private static final GroupDao groupDao = GroupDao.getInstance();
 
     private UserService() {
     }
@@ -39,7 +42,8 @@ public class UserService {
     }
 
     public void create(User user) {
-        userDao.create(user);
+        user = userDao.createAndReturn(user);
+        userDao.addUserToGroup(user, List.of(1L));
     }
 
     public void delete(User user) {

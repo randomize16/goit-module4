@@ -46,20 +46,20 @@ public class OrdersCommand implements Command {
     }
 
     private void get(String params) {
-        String[] paramsArray = params.split(" ");
-        this.orderService.getOrderView(Long.parseLong(paramsArray[0]))
-                .ifPresent(orderView -> {
-                    LOGGER.info("Order with id = " + paramsArray[0]);
-                    LOGGER.info("Number: " + orderView.getNumber() +
-                            " Description: " + orderView.getDescription() +
-                            " User: " + orderView.getUserName());
-                    orderView.getLines()
-                            .forEach(orderLineView -> {
-                                LOGGER.info("\t Category: " + orderLineView.getCategory() +
-                                        " Item: " + orderLineView.getItem() +
-                                        " Count: " + orderLineView.getCount());
-                            });
-                });
+//        String[] paramsArray = params.split(" ");
+//        this.orderService.getOrderView(Long.parseLong(paramsArray[0]))
+//                .ifPresent(orderView -> {
+//                    LOGGER.info("Order with id = " + paramsArray[0]);
+//                    LOGGER.info("Number: " + orderView.getNumber() +
+//                            " Description: " + orderView.getDescription() +
+//                            " User: " + orderView.getUserName());
+//                    orderView.getLines()
+//                            .forEach(orderLineView -> {
+//                                LOGGER.info("\t Category: " + orderLineView.getCategory() +
+//                                        " Item: " + orderLineView.getItem() +
+//                                        " Count: " + orderLineView.getCount());
+//                            });
+//                });
     }
 
     private void openOrder(String s) {
@@ -104,7 +104,7 @@ public class OrdersCommand implements Command {
     private void addLine(String params) {
         String[] paramsArray = params.split(" ");
         OrderLine ol = new OrderLine();
-        ol.setItemId(Long.parseLong(paramsArray[0]));
+//        ol.setItemId(Long.parseLong(paramsArray[0]));
         ol.setItemCount(Integer.parseInt(paramsArray[1]));
         this.order.getLines().add(ol);
     }

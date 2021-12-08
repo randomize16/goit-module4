@@ -12,10 +12,10 @@ public class Order {
     private Long id;
     private Integer number;
     private String description;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderLine> lines = new ArrayList<>();
 
     public Long getId() {

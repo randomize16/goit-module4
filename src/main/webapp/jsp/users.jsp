@@ -29,6 +29,7 @@
                 <th scope="col">Id</th>
                 <th scope="col">Name</th>
                 <th scope="col">Description</th>
+                <th scope="col">Groups</th>
                 <th scope="col">Action</th>
             </tr>
             </thead>
@@ -38,6 +39,12 @@
                     <td><c:out value = "${user.id}"/></td>
                     <td><c:out value = "${user.name}"/></td>
                     <td><c:out value = "${user.description}"/></td>
+                    <td>
+                        <c:forEach var="group" items="${user.groups}">
+                            <c:out value = "${group.name}"/>
+                            <br>
+                        </c:forEach>
+                    </td>
                     <td>
                         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                             <div class="btn-group me-2" role="group" aria-label="Second group">

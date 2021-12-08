@@ -3,6 +3,7 @@ package ua.goit.webapp.servlets;
 import ua.goit.model.Category;
 import ua.goit.model.Order;
 import ua.goit.model.OrderView;
+import ua.goit.model.User;
 import ua.goit.service.CategoryService;
 import ua.goit.service.HandleBodyUtil;
 import ua.goit.service.OrderService;
@@ -38,7 +39,11 @@ public class OrdersServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String requestURI = req.getRequestURI();
         String idStr = requestURI.substring(7);
-        if("/new".equalsIgnoreCase(idStr)) {
+        String deleteId = req.getParameter("deleteId");
+        if (deleteId != null) {
+            service.delete(Long.parseLong(deleteId));
+            resp.sendRedirect("/orders");
+        } else if("/new".equalsIgnoreCase(idStr)) {
             handleNew(req, resp);
         }
         else if (!"".equalsIgnoreCase(idStr)) {
@@ -61,7 +66,7 @@ public class OrdersServlet extends HttpServlet {
     }
 
     private void handleId(Long id, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        Optional<OrderView> order = service.getOrderView(id);
+        Optional<Order> order = service.get(id);
         if (order.isPresent()) {
             req.setAttribute("order", order.get());
             req.setCharacterEncoding("UTF-8");
@@ -72,9 +77,8 @@ public class OrdersServlet extends HttpServlet {
     }
 
     private void handleNew(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        req.setAttribute("category", new Category());
-//        List<Category> all = service.getAll();
-//        req.setAttribute("categories", all);
-//        req.getRequestDispatcher("/jsp/category.jsp").forward(req, resp);
+        req.setAttribute("order", new Order());
+        req.setAttribute("isNew", true);
+        req.getRequestDispatcher("/jsp/order.jsp").forward(req, resp);
     }
 }
